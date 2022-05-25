@@ -4,7 +4,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ProductItem from '../../components/ProductItem';
 import products from '../../data/products';
 
-const HomesScreen = () => {
+const HomesScreen = ({searchValue} : {searchValue : string}) => {
+  console.log(searchValue);
+
   return (
     <View style = {styles.page}>
       {/*render products*/}

@@ -1,11 +1,15 @@
-import { View, Text, Image , Pressable} from 'react-native'
-import React from 'react'
+import { View, Text, Image } from 'react-native'
+import React , {useState} from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import {useNavigation} from '@react-navigation/native'
+import QuantitySelector from '../../components/quantitySelector'
 
-interface ProductItemProps {
-    item: {
+interface CartProductItemProps {
+    cartItem : {
+      id : string,
+      quantity : number,
+      option ?: string,
+      item: {
         id: string,
         title: string,
         image: string,
@@ -13,20 +17,16 @@ interface ProductItemProps {
         ratings: number,
         price: number,
         oldPrice?: number,
+      }
     }
 }
 
-const ProductItem = (props:ProductItemProps) => {
-    const item = props.item;
-    const navigation = useNavigation();
-    const onPress = () => {
-      console.warn('pressed');
-      navigation.navigate('ProductDetails', {id : item.id});
-    }
-
+const CartProductItem = ({cartItem}:CartProductItemProps) => {
+    const {quantity : quantityProp, item} = cartItem
+    const [quantity, setQuantity] = useState(quantityProp)
   return (
     <View style={styles.page}>
-      <Pressable onPress={onPress} style={styles.root}>
+      <View style={styles.root}>
         <Image style = {styles.image} source = {{uri : item.image}}/>
         <View style = {styles.rightContainer}>
             <Text style={styles.title} numberOfLines = {3}>{item.title}</Text>
@@ -47,10 +47,12 @@ const ProductItem = (props:ProductItemProps) => {
             <Text style={styles.price}>from ${item.price}
                 {item.oldPrice && (<Text style={styles.oldprice}>${item.oldPrice}</Text>)}
             </Text>
+            <QuantitySelector quantity={quantity} setQuantity = {setQuantity} />
         </View>
-      </Pressable>
+
+      </View>
     </View>
   )
 }
 
-export default ProductItem
+export default CartProductItem

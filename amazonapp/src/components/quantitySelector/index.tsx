@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         width: 150,
         height : 50,
         justifyContent : "space-between",
+        margin : 5,
     },
     button : {
         width : 50,

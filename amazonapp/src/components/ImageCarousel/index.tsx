@@ -1,9 +1,16 @@
 import { View, Text, FlatList, Image, StyleSheet, useWindowDimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState , useCallback} from 'react'
 
 const ImageCarousel = ({images} : {images: [string]}) => {
     const windowWidth = useWindowDimensions().width;
     const [activeIndex, setActiveIndex] = useState(0);
+    const onFlatlist = useCallback(({viewableItems}) => {
+        if (viewableItems.length > 0) {
+          setActiveIndex(viewableItems[0].index || 0);
+        }
+        console.log(viewableItems);
+      }, []);
+
   return (
     <View style={styles.root}>
         <FlatList 
@@ -17,7 +24,8 @@ const ImageCarousel = ({images} : {images: [string]}) => {
             snapToInterval = {windowWidth - 20}
             decelerationRate = {"fast"}
             viewabilityConfig = {{viewAreaCoveragePercentThreshold : 50}}
-            onViewableItemsChanged = {({viewableItem}) => {console.log(viewableItem);}}/>
+            onViewableItemsChanged = {onFlatlist}
+        />
         
         <View style = {styles.dots}>
             {images.map((image, index) => 

@@ -7,8 +7,10 @@
  *
  * @format
  */
+import "react-native-gesture-handler"
 import HomesScreen from './src/screens/HomeScreen';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   SafeAreaView,
   StatusBar,
@@ -21,8 +23,11 @@ import {
   Colors,
   
 } from 'react-native/Libraries/NewAppScreen';
-import ProductScreen from './src/screens/ProductScreen';
-//import Icon from 'react-native-vector-icons/FontAwesome';
+import Router from './src/router';
+// import ProductScreen from './src/screens/ProductScreen';
+// //import Icon from 'react-native-vector-icons/FontAwesome';
+// import ShopCartScreen from './src/screens/ShopCartScreen';
+// import AddressScreen from './src/screens/AddressScreen';
 
 
 
@@ -32,13 +37,16 @@ const App = () => {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
-
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       {/* <HomesScreen/> */}
-      <ProductScreen />
+      {/* <ProductScreen /> */}
+      {/* <ShopCartScreen /> */}
+      {/* <AddressScreen /> */}
+      <Router />
     </SafeAreaView>
   );
 };
