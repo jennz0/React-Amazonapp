@@ -7,6 +7,7 @@ import HomesScreen from '../screens/HomeScreen'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Entypo from 'react-native-vector-icons/Entypo'
 import HomeStack from './HomeStack';
+import MenuScreen from '../screens/MenuScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -28,7 +29,7 @@ const BottomTabNav = () => {
             <Tab.Screen component={HomesScreen} 
                         name = "Profile"
                         options={{tabBarIcon : ({color}) => <Entypo name="user" color={color} size={19}/>}}/>
-            <Tab.Screen component={HomesScreen} 
+            <Tab.Screen component={MenuScreen} 
                         name = "More"
                         options={{tabBarIcon : ({color}) => <Entypo name="menu" color={color} size={19}/>}}/>
         </Tab.Navigator>

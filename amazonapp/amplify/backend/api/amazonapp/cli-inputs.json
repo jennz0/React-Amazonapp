@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amazonapp",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/znf/Documents/GitHub/StartInvest-Training/amazonapp/amplify/backend/api/amazonapp/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-05-25T22:18:29.328Z",
+      "keyDescription": "api key amazon"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}

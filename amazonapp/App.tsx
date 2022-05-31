@@ -29,6 +29,10 @@ import Router from './src/router';
 // import ShopCartScreen from './src/screens/ShopCartScreen';
 // import AddressScreen from './src/screens/AddressScreen';
 
+import {withAuthenticator} from 'aws-amplify-react-native'
+import Amplify , {Auth} from 'aws-amplify'
+import config from './src/aws-exports'
+Amplify.configure(config)
 
 
 
@@ -53,4 +57,4 @@ const App = () => {
 
 
 
-export default App;
+export default withAuthenticator(App);

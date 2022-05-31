@@ -44,8 +44,8 @@ const ProductItem = (props:ProductItemProps) => {
                 <FontAwesome name = "star-o" style={styles.star} size = {18} color = {'#e47911'}></FontAwesome> */}
                 <Text>13,032</Text>
             </View>
-            <Text style={styles.price}>from ${item.price}
-                {item.oldPrice && (<Text style={styles.oldprice}>${item.oldPrice}</Text>)}
+            <Text style={styles.price}>from ${item.price.toFixed(2)}
+                {item.oldPrice && (<Text style={styles.oldprice}>${item.oldPrice.toFixed(2)}</Text>)}
             </Text>
         </View>
       </Pressable>

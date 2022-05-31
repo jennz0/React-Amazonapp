@@ -4,7 +4,7 @@
 
 - https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/products/cleanarchitecture.jpg
 
-- https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/products/cleancode.jpg
+- https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/products/cleanarchitecture.jpg
 
 - https://notjustdev-dummy.s3.us-east-2.amazonaws.com/images/products/imac1.jpg
 

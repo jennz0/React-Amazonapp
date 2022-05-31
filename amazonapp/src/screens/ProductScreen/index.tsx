@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useRoute } from '@react-navigation/native'
 import styles from './styles'
 import products from '../../data/product'
