@@ -20,7 +20,6 @@ const ProductItem = (props:ProductItemProps) => {
     const item = props.item;
     const navigation = useNavigation();
     const onPress = () => {
-      console.warn('pressed');
       navigation.navigate('ProductDetails', {id : item.id});
     }
 
