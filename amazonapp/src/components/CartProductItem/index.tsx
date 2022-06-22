@@ -5,32 +5,29 @@ import styles from './styles';
 import QuantitySelector from '../../components/quantitySelector'
 
 
-import {DataStore} from 'aws-amplify';
+import {DataStore, Auth} from 'aws-amplify';
 
-import {CartProduct} from '../../models';
+import {CartProduct, Product} from '../../models';
 
 interface CartProductItemProps {
-  //cartItem: Product;
-    cartItem : {
-      id : string,
-      quantity : number,
-      option ?: string,
-      product: {
-        id: string,
-        title: string,
-        image: string,
-        avgRating: number,
-        ratings: number,
-        price: number,
-        oldPrice?: number,
-      }
-    }
+  cartItem: Product;
 }
 
 const CartProductItem = ({cartItem}:CartProductItemProps) => {
   
-    const {quantity : quantityProp, product} = cartItem
-    const [quantity, setQuantity] = useState(quantityProp)
+    const {product, ...cartProduct} = cartItem
+    //const [quantity, setQuantity] = useState(quantityProp)
+
+    const updateQuantity = async (newQuantity : number) => {
+      const original = await DataStore.query(CartProduct, cartProduct.id);
+
+      await DataStore.save(
+        CartProduct.copyOf(original, updated => {
+          updated.quantity = newQuantity;
+        })
+      );
+    };
+
   return (
     <View style={styles.page}>
       <View style={styles.root}>
@@ -54,7 +51,7 @@ const CartProductItem = ({cartItem}:CartProductItemProps) => {
             <Text style={styles.price}>from ${product.price.toFixed(2)}
                 {product.oldPrice && (<Text style={styles.oldprice}>${product.oldPrice.toFixed(2)}</Text>)}
             </Text>
-            <QuantitySelector quantity={quantity} setQuantity = {setQuantity} />
+            <QuantitySelector quantity={cartProduct.quantity} setQuantity = {updateQuantity} />
         </View>
 
       </View>

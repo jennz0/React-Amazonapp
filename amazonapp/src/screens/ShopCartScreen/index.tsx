@@ -81,6 +81,7 @@ const ShopingCartScreen = () => {
         subscriptions.forEach(sub => sub.unsubscribe());
       };
     }, [cartProducts]);
+
   
     const totalPrice = cartProducts.reduce(
       (summedPrice, product) =>
