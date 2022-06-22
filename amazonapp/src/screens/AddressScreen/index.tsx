@@ -4,6 +4,9 @@ import styles from './styles'
 import countryList from 'country-list'
 import { Picker } from '@react-native-picker/picker'
 import Button from '../../components/Button'
+import { DataStore, Auth } from 'aws-amplify'
+import {Order, OrderProduct, CartProduct} from '../../models'
+import { NavigationContainer, useNavigation} from '@react-navigation/native'
 
 const countries = countryList.getData();
 
@@ -16,6 +19,46 @@ const AddressScreen = () => {
     const [city, setCity] = useState("");
     const [addressError, setAddressError] = useState("Invalid Address");
     const [state, setState] = useState({country : '', fullName: ''});
+    const navigation = useNavigation();
+
+
+    const saveOrder =async () => {
+        //create a new order
+        const userData = await Auth.currentAuthenticatedUser();
+
+
+        const newOrder = await DataStore.save(
+            new Order({
+                userSub: userData.attributes.sub,
+
+                fullName: fullName,
+                phoneNumber: phoneNum,
+                country: country,
+                city: city,
+                address: address,
+            })
+        )
+
+        //fetch all cart items
+        const cartItems = await DataStore.query(CartProduct, cp =>
+            cp.userSub('eq', userData.attributes.sub));
+
+        //attach all cart items to the order
+        await Promise.all(
+            cartItems.map(cartItems => DataStore.save(new OrderProduct({
+                quantity : cartItems.quantity,
+                option : cartItems.option,
+                productID : cartItems.productID,
+                orderID : newOrder.id,
+            })))
+        )
+
+        // delete all cart items
+        await Promise.all(cartItems.map(cartItem => DataStore.delete(cartItem)));
+
+        //redirect home
+        navigation.navigate('Home');
+    };
 
     const onCheckout = () => {
         if (!!addressError) {
@@ -32,6 +75,7 @@ const AddressScreen = () => {
         }
 
         console.warn("checkout succeeded")
+        saveOrder();
     }
 
     console.log(address);
